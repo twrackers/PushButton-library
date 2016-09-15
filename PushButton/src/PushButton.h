@@ -1,6 +1,8 @@
 #ifndef _PUSH_BUTTON__H_
 #define _PUSH_BUTTON__H_
 
+#include <OneShot.h>
+
 class PushButton
 {
 private:
@@ -16,6 +18,7 @@ public:
     const unsigned int dly  // lockout time in msec
   ) : m_os(OneShot(dly)), m_pin(pin), m_activeLevel(active != LOW)
   {
+    pinMode(m_pin, INPUT_PULLUP);
   }
 
   virtual bool update()
