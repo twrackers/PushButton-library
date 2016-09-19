@@ -3,13 +3,20 @@
 
 #include <OneShot.h>
 
+// Implements class to read a digital input pin, with a lockout
+// period to provide debounce.  Useful for reading a momentary pushbutton.
+//
+// Dependencies
+//   PushButton
+//   +--uses--> OneShot
+//              +--isa--> StateMachine
 class PushButton
 {
 private:
   OneShot    m_os;          // one-shot for lockout period
   const byte m_pin;         // pin to read
-  const bool m_activeLevel; // true for active high input,
-                            // false for active low input
+  const bool m_activeLevel; // true for active high input (pull up on close),
+                            // false for active low input (pull down on close)
   
 public:
   PushButton(
@@ -18,7 +25,8 @@ public:
     const unsigned int dly  // lockout time in msec
   ) : m_os(OneShot(dly)), m_pin(pin), m_activeLevel(active != LOW)
   {
-    pinMode(m_pin, INPUT_PULLUP);
+    pinMode(m_pin, INPUT_PULLUP);   // use pull-up in case pushbutton has
+                                    // open-circuit state
   }
 
   virtual bool update()
