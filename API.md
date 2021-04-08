@@ -28,3 +28,4 @@ In short, `update()` only returns `true` when the GPIO pin goes from inactive to
 ### *void clear()* ###
 
 Terminates the delay interval early after a button press.
+
