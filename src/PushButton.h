@@ -8,8 +8,8 @@
 //
 // Dependencies
 //   PushButton
-//   +--uses--> OneShot
-//              +--isa--> StateMachine
+//   `--uses--> OneShot
+//              `--isa--> StateMachine
 class PushButton
 {
 private:
