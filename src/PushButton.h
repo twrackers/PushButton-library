@@ -18,6 +18,7 @@ private:
   const bool m_activeLevel; // true for active high input (pull up on close),
                             // false for active low input (pull down on close)
   bool       m_released;    // true if button has gone inactive
+  bool       m_pullup;      // true if INPUT_PULLUP selected, false for INPUT
   enum E_STATE {
     eInactive, eTiming, eStillPressed
   } m_state;
@@ -28,7 +29,7 @@ public:
     const byte active,      // active LOW or HIGH
     const unsigned int dly  // lockout time in msec
   ) : m_os(OneShot(dly)), m_pin(pin), m_activeLevel(active != LOW),
-  m_released(true), m_state(eInactive)
+  m_released(true), m_pullup(true), m_state(eInactive)
   {
     pinMode(m_pin, INPUT_PULLUP);   // use pull-up in case pushbutton has
                                     // open-circuit state
@@ -79,6 +80,15 @@ public:
   void clear()
   {
     m_os.clear();
+  }
+
+  void setPullup(const bool enable) {
+    m_pullup = enable;
+    pinMode(m_pin, m_pullup : INPUT_PULLUP : INPUT);
+  }
+
+  bool isPullup() const {
+    return m_pullup;
   }
 };
 
