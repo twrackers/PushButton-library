@@ -84,7 +84,7 @@ public:
 
   void setPullup(const bool enable) {
     m_pullup = enable;
-    pinMode(m_pin, m_pullup : INPUT_PULLUP : INPUT);
+    pinMode(m_pin, m_pullup ? INPUT_PULLUP : INPUT);
   }
 
   bool isPullup() const {
